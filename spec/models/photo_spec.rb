@@ -9,7 +9,7 @@ describe Photo do
     Photo.create!(@valid_attrs)
   end
 
-  it "require a title" do 
+  it "requires a title" do 
     photo = Photo.new(@valid_attrs.merge(:title => nil))
     photo.should_not be_valid
     photo.errors_on(:title).should include("can't be blank")
