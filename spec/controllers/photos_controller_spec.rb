@@ -71,8 +71,13 @@ describe PhotosController do
   end
 
   describe "GET 'show'" do
+    before(:each) do 
+      @photo = mock_model(Photo, :title => 'A new title')
+      Photo.should_receive(:find).and_return(@photo)
+    end
+
     it "should be successful" do
-      get 'show'
+      get 'show', :id => @photo
       response.should be_success
     end
   end

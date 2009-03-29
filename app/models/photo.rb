@@ -1,13 +1,16 @@
 require 'mini_exiftool'
 class Photo < ActiveRecord::Base
 
+  validates_presence_of :title
+
   has_attached_file :picture,
                     :styles => { :thumb  => ["100x75>", :png],
                                  :tiny   => ["180x135", :png],
                                  :small  => ["240x180>", :png],
                                  :medium => ["500x375>", :png] }
 
-  before_save :copy_picture_filename_if_nil_title
+  before_validation :set_title
+
 # FIXME: set_exif_data grabs wrong path
 #  after_create :set_exif_data
 
@@ -30,7 +33,7 @@ class Photo < ActiveRecord::Base
   end
 
   protected
-  def copy_picture_filename_if_nil_title
-    self.title = self.picture_file_name if self.title.blank?
+  def set_title
+    self.title = "untitled photo" if self.title.nil?
   end
 end
