@@ -3,7 +3,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Photo do
   before(:each) do
     @valid_attrs = { 
-      :title => "A New Photo",
       :picture => fixture_file_upload('picture.jpg', 'image/jpeg')
     }
   end
@@ -12,10 +11,11 @@ describe Photo do
     Photo.create!(@valid_attrs)
   end
 
-  it "requires a title" do 
+  it "copies the title before validation" do 
     photo = Photo.new(@valid_attrs.merge(:title => nil))
-    photo.should_not be_valid
-    photo.errors_on(:title).should include("can't be blank")
+    photo.should be_valid
+    photo.save.should == true
+    photo.reload.title.should == photo.picture_file_name
   end
 
   describe "exif_data" do 
@@ -39,7 +39,6 @@ describe Photo do
       @photo.set_exif_data.should == true
       @photo.reload.exif_data.should_not be_empty
     end
-
   end
 
 end

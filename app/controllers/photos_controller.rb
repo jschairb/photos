@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
     if @photo.save
       redirect_to photo_path(@photo)
     else
-      render :template => "new"
+      render :action => "new"
     end
   end
 

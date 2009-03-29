@@ -1,5 +1,7 @@
 <h1>Upload a new Photo</h1>
-<% form_for :photo, @photo do |f| -%>
+<%= error_messages_for(:photo) %>
+
+<% form_for @photo do |f| -%>
   <%= f.file_field :picture %>
   <%= submit_tag "Create" %>
 <% end -%>
