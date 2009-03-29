@@ -7,6 +7,15 @@ describe PhotosController do
   end
 
   describe "GET 'index'" do
+    before(:each) do 
+      @photos = [mock_model(Photo)]
+    end
+
+    it "should instantiate a collection of photos" do 
+      Photo.should_receive(:find).and_return(@photos)
+      get 'index'
+    end
+
     it "should be successful" do
       get 'index'
       response.should be_success
