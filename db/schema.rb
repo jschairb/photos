@@ -9,13 +9,34 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090317005522) do
+ActiveRecord::Schema.define(:version => 20090326012036) do
 
   create_table "photos", :force => true do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.string   "aperture"
+    t.string   "comment"
+    t.datetime "create_date"
+    t.datetime "date_time_original"
+    t.string   "device_attributes"
+    t.string   "exif_tool_version"
+    t.string   "exif_version"
+    t.string   "exposure_time"
+    t.string   "flash"
+    t.string   "focal_length"
+    t.string   "image_size"
+    t.string   "keywords"
+    t.string   "make"
+    t.string   "model"
+    t.datetime "modify_date"
+    t.string   "orientation"
+    t.string   "shutter_speed"
   end
 
 end
