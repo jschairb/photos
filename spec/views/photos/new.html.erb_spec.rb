@@ -5,8 +5,15 @@ describe "/photos/new" do
     render 'photos/new'
   end
   
-  #Delete this example and add some real ones or delete this file
-  it "should tell you where to find the file" do
-    response.should have_tag('p', %r[Find me in app/views/photos/new])
+  it "should have a form tag" do 
+    response.should have_tag('form')
+  end
+
+  it "should have a file_field" do 
+    response.should have_tag("input[type=file]")
+  end
+
+  it "has a submit button" do 
+    response.should have_tag('input[value=Create]')
   end
 end

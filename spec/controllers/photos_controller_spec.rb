@@ -20,6 +20,11 @@ describe PhotosController do
       get 'new'
       response.should be_success
     end
+
+    it "should instantiate a new Photo" do 
+      get 'new'
+      assigns(:photo).should_not be_nil
+    end
   end
 
   describe "GET 'edit'" do
