@@ -2,11 +2,20 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/photos/edit" do
   before(:each) do
+    @photo = mock_model(Photo, :new_record? => true, :title => "a photo")
+    assigns[:photo] = @photo    
     render 'photos/edit'
   end
   
-  #Delete this example and add some real ones or delete this file
-  it "should tell you where to find the file" do
-    response.should have_tag('p', %r[Find me in app/views/photos/edit])
+  it "should have a form tag" do 
+    response.should have_tag("form[action=#{photos_path}][enctype=multipart/form-data]")
+  end
+
+  it "should have a file_field" do 
+    response.should have_tag("input[type=file]")
+  end
+
+  it "has a submit button" do 
+    response.should have_tag('input[value=Save]')
   end
 end

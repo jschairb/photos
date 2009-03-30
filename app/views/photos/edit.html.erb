@@ -1,2 +1,7 @@
-<h1>Photos#edit</h1>
-<p>Find me in app/views/photos/edit.html.erb</p>
+<h1>Edit Photo</h1>
+<%= error_messages_for(:photo) %>
+
+<% @submit_text = "Save" -%>
+
+<%= render :partial => 'form' %>
+
