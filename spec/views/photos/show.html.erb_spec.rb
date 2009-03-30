@@ -2,7 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/photos/show" do
   before(:each) do
+    picture = mock("picture", :url => '/picture.jpg')
     @photo = mock_model(Photo, :title => "A Photo")
+    @photo.should_receive(:picture).and_return(picture)
     assigns[:photo] = @photo
     render 'photos/show'
   end

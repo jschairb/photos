@@ -3,11 +3,7 @@ class Photo < ActiveRecord::Base
 
   validates_presence_of :title
 
-  has_attached_file :picture,
-                    :styles => { :thumb  => ["100x75>", :png],
-                                 :tiny   => ["180x135", :png],
-                                 :small  => ["240x180>", :png],
-                                 :medium => ["500x375>", :png] }
+  has_attached_file :picture
 
   before_validation :set_title
 
