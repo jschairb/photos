@@ -64,8 +64,18 @@ describe PhotosController do
   end
 
   describe "GET 'edit'" do
+    before(:each) do 
+      @photo = mock_model(Photo, :title => "photo")
+      Photo.should_receive(:find).and_return(@photo)
+    end
+
+    it "should assign a variable to a photo" do 
+      get 'edit', :id => @photo.id
+      assigns(:photo).should_not be_nil
+    end
+
     it "should be successful" do
-      get 'edit'
+      get 'edit', :id => @photo.id
       response.should be_success
     end
   end

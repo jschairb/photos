@@ -17,6 +17,7 @@ class PhotosController < ApplicationController
   end
 
   def edit
+    @photo = Photo.find params[:id]
   end
 
   def update

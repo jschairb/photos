@@ -1,8 +1,11 @@
 <h1>Upload a new Photo</h1>
 <%= error_messages_for(:photo) %>
 
-<% form_for @photo do |f| -%>
-  <%= f.file_field :picture %>
+<% form_for @photo, :html => { :multipart => true } do |f| -%>
+  <p><label for="photo_title">Title</label>
+  <%= f.text_field :title %></p>
+  <p><label for="photo_title">File</label>
+  <%= f.file_field :picture %></p>
   <%= submit_tag "Create" %>
 <% end -%>
 
