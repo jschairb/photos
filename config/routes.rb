@@ -1,5 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.resource :user_session
+
   map.resources :photos
+
+  map.root :photos
 
   # The priority is based upon order of creation: first created -> highest priority.
 
