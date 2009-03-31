@@ -21,6 +21,12 @@ class PhotosController < ApplicationController
   end
 
   def update
+    @photo = Photo.find params[:id]
+    if @photo.update_attributes(params[:photo])
+      redirect_to photo_path(@photo)
+    else
+      render :action => "edit"
+    end
   end
 
   def show

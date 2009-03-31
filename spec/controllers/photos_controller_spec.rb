@@ -80,6 +80,26 @@ describe PhotosController do
     end
   end
 
+  describe "PUT 'update'" do 
+    before(:each) do 
+      @photo = mock_model(Photo, :title => 'A new title')
+      Photo.should_receive(:find).and_return(@photo)
+    end
+    
+    it "should redirect if saved" do 
+      @photo.should_receive(:update_attributes).and_return(true)
+      put 'update', :id => @photo.id, :photo => { :title => "a new title" }
+      response.should be_redirect
+      response.should redirect_to(photo_path(assigns(:photo)))
+    end
+
+    it "should render the edit form if invalid" do 
+      @photo.should_receive(:update_attributes).and_return(false)
+      put 'update', :id => @photo.id, :photo => { :title => "a new title" }
+      response.should render_template("photos/edit")
+    end
+  end
+
   describe "GET 'show'" do
     before(:each) do 
       @photo = mock_model(Photo, :title => 'A new title')
