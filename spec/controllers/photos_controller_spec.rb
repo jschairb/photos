@@ -111,4 +111,13 @@ describe PhotosController do
       response.should be_success
     end
   end
+
+  describe "DELETE 'destroy'" do 
+    it "should redirect after destroy" do 
+      @photo = mock_model(Photo, :title => 'A new title')
+      Photo.should_receive(:find).and_return(@photo)
+      @photo.should_receive(:destroy).and_return(true)
+      delete :destroy, :id => @photo.id
+    end
+  end
 end
