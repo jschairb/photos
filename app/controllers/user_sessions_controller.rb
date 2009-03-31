@@ -14,7 +14,6 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    
   end
 
   # 1. add user crud
