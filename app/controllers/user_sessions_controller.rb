@@ -19,8 +19,4 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     redirect_back_or_default new_user_session_url
   end
-
-  # 3. finish logout
-  # 4. add filter functionality
-
 end

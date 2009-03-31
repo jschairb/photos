@@ -6,6 +6,7 @@ describe UserSessionsController do
     it "should be successful" do 
       user_session = mock_model(UserSession)
       UserSession.should_receive(:new).and_return(user_session)
+      UserSession.should_receive(:find)
       get 'new'
       response.should be_success
     end
@@ -16,6 +17,7 @@ describe UserSessionsController do
       @session_params = { :login => "foobar", :password => "bazbuz", :remember_me => true }
       @user_session = mock_model(UserSession)
       UserSession.should_receive(:new).and_return(@user_session)
+      UserSession.should_receive(:find)
     end
 
     it "should redirect if logged in" do 
