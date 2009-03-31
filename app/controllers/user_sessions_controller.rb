@@ -1,4 +1,6 @@
 class UserSessionsController < ApplicationController
+  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_user, :only => :destroy
 
   def new
     @user_session = UserSession.new
@@ -14,10 +16,10 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    current_user_session.destroy
+    redirect_back_or_default new_user_session_url
   end
 
-  # 1. add user crud
-  # 2. add current_user functionality
   # 3. finish logout
   # 4. add filter functionality
 

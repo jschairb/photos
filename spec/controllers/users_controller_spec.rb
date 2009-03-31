@@ -2,13 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UsersController do
 
-  describe "GET 'index'" do
-    it "should be successful" do
-      get 'index'
-      response.should be_success
-    end
-  end
-
   describe "GET 'new'" do
     it "should instantiate an @user variable" do 
       user = mock_model(User, :new_record? => true)
@@ -45,16 +38,31 @@ describe UsersController do
   end
 
   describe "GET 'show'" do
+    before do 
+      login
+    end
+
     it "should be successful" do
-      get 'show'
+      # FIXME: should just be @current_user, problem w/ spec_helper methods
+      get 'show', :id => @current_user.user.id
       response.should be_success
     end
   end
 
   describe "GET 'edit'" do
+    before(:each) do 
+      login
+    end
+
     it "should be successful" do
-      get 'edit'
+      get 'edit', :id => @current_user.user.id
       response.should be_success
+    end
+
+    it "should set a variable @user to @current_user" do 
+      get 'edit', :id => @current_user.user.id
+      assigns(:current_user).should == @current_user.user
+      assigns(:user).should == assigns(:current_user)
     end
   end
 end

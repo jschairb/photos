@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  def index
-  end
+  before_filter :require_no_user, :only => [:new, :create]
+  before_filter :require_user, :only => [:show, :edit, :update]
 
   def new
     @user = User.new
@@ -17,15 +17,19 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = @current_user
   end
 
   def edit
+    @user = @current_user
   end
 
   def update
+    @user = @current_user
+    if @user.update_attributes(params[:user])
+      redirect_to user_path(@user)
+    else
+      render :action => :edit
+    end
   end
-
-  def destroy
-  end
-
 end
