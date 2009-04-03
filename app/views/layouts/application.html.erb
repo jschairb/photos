@@ -1,8 +1,19 @@
 <html>
   <head>
-    <title>Photos</title>
+    <title>Photos - <%= controller.controller_name %> : <%= controller.action_name %></title>
   </head>
   <body>
+    <div id="login_links">
+      <% if current_user-%>
+        <% form_for :user_session, current_user_session,
+                    :url => user_session_path, 
+                    :html => { :method => :delete } do |f| -%>
+          <%= submit_tag "Logout" %>
+        <% end -%>
+      <% else -%>
+        <%= link_to "login", new_user_session_path %>
+      <% end -%>
+    </div>
     <%= @content_for_layout %>
   </body>
 </html>

@@ -43,8 +43,7 @@ describe UsersController do
     end
 
     it "should be successful" do
-      # FIXME: should just be @current_user, problem w/ spec_helper methods
-      get 'show', :id => @current_user.user.id
+      get 'show', :id => @current_user.id
       response.should be_success
     end
   end
@@ -55,13 +54,13 @@ describe UsersController do
     end
 
     it "should be successful" do
-      get 'edit', :id => @current_user.user.id
+      get 'edit', :id => @current_user.id
       response.should be_success
     end
 
     it "should set a variable @user to @current_user" do 
-      get 'edit', :id => @current_user.user.id
-      assigns(:current_user).should == @current_user.user
+      get 'edit', :id => @current_user.id
+      assigns(:current_user).should == @current_user
       assigns(:user).should == assigns(:current_user)
     end
   end
