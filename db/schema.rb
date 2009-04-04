@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090331023141) do
+ActiveRecord::Schema.define(:version => 20090404010603) do
 
   create_table "photos", :force => true do |t|
     t.string   "title"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20090331023141) do
     t.datetime "modify_date"
     t.string   "orientation"
     t.string   "shutter_speed"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|

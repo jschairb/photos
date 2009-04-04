@@ -1,7 +1,9 @@
 require 'mini_exiftool'
 class Photo < ActiveRecord::Base
 
-  validates_presence_of :title
+  belongs_to :user
+
+  validates_presence_of :title, :user
 
   has_attached_file :picture
   validates_attachment_presence :picture

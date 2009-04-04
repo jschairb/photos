@@ -2,15 +2,15 @@ class PhotosController < ApplicationController
   before_filter :require_user
 
   def index
-    @photos = Photo.find(:all)
+    @photos = current_user.photos.find(:all)
   end
 
   def new
-    @photo = Photo.new
+    @photo = current_user.photos.build
   end
 
   def create
-    @photo = Photo.new(params[:photo])
+    @photo = current_user.photos.build(params[:photo])
     if @photo.save
       redirect_to photo_path(@photo)
     else
@@ -19,11 +19,11 @@ class PhotosController < ApplicationController
   end
 
   def edit
-    @photo = Photo.find params[:id]
+    @photo = current_user.photos.find params[:id]
   end
 
   def update
-    @photo = Photo.find params[:id]
+    @photo = current_user.photos.find params[:id]
     if @photo.update_attributes(params[:photo])
       redirect_to photo_path(@photo)
     else
@@ -32,11 +32,11 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @photo = Photo.find params[:id]
+    @photo = current_user.photos.find params[:id]
   end
 
   def destroy
-    @photo = Photo.find(params[:id]).destroy
+    @photo = current_user.photos.find(params[:id]).destroy
     redirect_to photos_path
   end
 end

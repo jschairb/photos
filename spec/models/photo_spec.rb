@@ -2,8 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Photo do
   before(:each) do
+    @user = mock_model(User)
     @valid_attrs = { 
-      :picture => fixture_file_upload('picture.jpg', 'image/jpeg')
+      :picture => fixture_file_upload('picture.jpg', 'image/jpeg'),
+      :user => @user
     }
   end
 
