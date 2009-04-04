@@ -4,6 +4,7 @@ describe PhotosController do
 
   before(:each) do 
     @valid_attrs = { }
+    login
   end
 
   describe "GET 'index'" do
