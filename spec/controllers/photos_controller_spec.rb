@@ -5,19 +5,13 @@ describe PhotosController do
   before(:each) do 
     @valid_attrs = { }
     login
+    @photos = mock("Photos")
+    @current_user.stub!(:photos).and_return(@photos)
   end
 
   describe "GET 'index'" do
-    before(:each) do 
-      @photos = [mock_model(Photo)]
-    end
-
-    it "should instantiate a collection of photos" do 
-      Photo.should_receive(:find).and_return(@photos)
-      get 'index'
-    end
-
     it "should be successful" do
+      @photos.should_receive(:find)
       get 'index'
       response.should be_success
     end
@@ -25,13 +19,9 @@ describe PhotosController do
 
   describe "GET 'new'" do
     it "should be successful" do
+      @photos.should_receive(:build)
       get 'new'
       response.should be_success
-    end
-
-    it "should instantiate a new Photo" do 
-      get 'new'
-      assigns(:photo).should_not be_nil
     end
   end
 
@@ -60,14 +50,14 @@ describe PhotosController do
     def mock_new_photo(save_result=true)
       @photo = mock_model(Photo) 
       @photo.stub!(:save).and_return(save_result)
-      Photo.should_receive(:new).and_return(@photo)
+      @photos.should_receive(:build).and_return(@photo)
     end
   end
 
   describe "GET 'edit'" do
     before(:each) do 
       @photo = mock_model(Photo, :title => "photo")
-      Photo.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find).and_return(@photo)
     end
 
     it "should assign a variable to a photo" do 
@@ -84,7 +74,7 @@ describe PhotosController do
   describe "PUT 'update'" do 
     before(:each) do 
       @photo = mock_model(Photo, :title => 'A new title')
-      Photo.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find).and_return(@photo)
     end
     
     it "should redirect if saved" do 
@@ -104,7 +94,7 @@ describe PhotosController do
   describe "GET 'show'" do
     before(:each) do 
       @photo = mock_model(Photo, :title => 'A new title')
-      Photo.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find).and_return(@photo)
     end
 
     it "should be successful" do
@@ -116,8 +106,8 @@ describe PhotosController do
   describe "DELETE 'destroy'" do 
     it "should redirect after destroy" do 
       @photo = mock_model(Photo, :title => 'A new title')
-      Photo.should_receive(:find).and_return(@photo)
       @photo.should_receive(:destroy).and_return(true)
+      @photos.should_receive(:find).and_return(@photo)
       delete :destroy, :id => @photo.id
     end
   end

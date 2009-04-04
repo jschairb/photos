@@ -7,9 +7,10 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  config.include FixtureReplacement
 
-  include ActionController::TestProcess
-  include Authlogic::TestCase
+  config.include ActionController::TestProcess
+  config.include Authlogic::TestCase
 end
 
 def current_user(stubs = {})
