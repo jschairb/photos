@@ -1,2 +1,8 @@
-<h1>Activations#new</h1>
-<p>Find me in app/views/activations/new.html.erb</p>
+<h1>Activate your account</h1>
+ 
+<% form_for @user, :url => activate_path(@user.id), :html => { :method => :post } do |f| %>
+  <%= f.error_messages %>
+  <%= f.submit "Activate" %>
+<% end %>
+
+<h2>Why is this necessary?</h2>

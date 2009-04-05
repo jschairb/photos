@@ -9,8 +9,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      redirect_to user_path(@user)
+    if @user.save_without_session_management
+      redirect_to instructions_activations_path
     else
       render :action => "new"
     end

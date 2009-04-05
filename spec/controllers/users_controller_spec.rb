@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe UsersController do
 
   describe "GET 'new'" do
+    it "should also map to /signup" do 
+      params_from(:get, "/signup").should == {:controller => "users", :action => "new"}
+    end
+
     it "should instantiate an @user variable" do 
       user = mock_model(User, :new_record? => true)
       User.should_receive(:new).and_return(user)
@@ -24,14 +28,14 @@ describe UsersController do
     end
 
     it "should save a User and redirect, if valid" do 
-      @user.should_receive(:save).and_return(true)
+      @user.should_receive(:save_without_session_management).and_return(true)
       post :create, :user => @user_attrs
       response.should be_redirect
-      response.should redirect_to(user_path(@user))
+      response.should redirect_to(instructions_activations_path)
     end
 
     it "should render new template, if not valid" do 
-      @user.should_receive(:save).and_return(false)
+      @user.should_receive(:save_without_session_management).and_return(false)
       post :create, :user => @user_attrs
       response.should render_template("users/new")
     end

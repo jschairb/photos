@@ -20,11 +20,24 @@ describe User do
   end
 
   describe "activate!" do 
-    it "makes an inactive user active" do 
-      user = User.create!(@valid_attributes)
-      user.should_not be_active
-      user.activate!
-      user.reload.should be_active
+    before(:each) do 
+      @user = User.create!(@valid_attributes)
+    end
+
+    it "should make an inactive user active" do 
+      @user.should_not be_active
+      @user.activate!
+      @user.reload.should be_active
+    end
+
+    it "should resent the perishable_token" do 
+      @user.should_receive(:reset_perishable_token!)
+      @user.activate!
+    end
+
+    it "should deliver the activation_completion email" do 
+      AccountMaintenance.should_receive(:deliver_activation_completion)
+      @user.activate!
     end
   end
 end

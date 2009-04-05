@@ -13,7 +13,9 @@ class User < ActiveRecord::Base
 
   def activate!
     self.active = true
-    save
+    if save
+      deliver_activation_completion!
+    end
   end
 
   private
@@ -22,4 +24,8 @@ class User < ActiveRecord::Base
     AccountMaintenance.deliver_activation_instructions(self)
   end
 
+  def deliver_activation_completion!
+    reset_perishable_token!
+    AccountMaintenance.deliver_activation_completion(self)
+  end
 end

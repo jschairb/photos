@@ -7,10 +7,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :photos
 
+  # SIGNUP
+  map.signup '/signup', :controller => "users", :action => "new"
+
   # ACTIVATION
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
-  map.resources :activations
+  map.resources :activations, :collection => { :instructions => :get }
 
   map.picture "/pictures/:id/:style", :controller => "pictures", :action => "show"
 
