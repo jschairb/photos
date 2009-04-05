@@ -14,6 +14,11 @@ describe User do
     User.create!(@valid_attributes)
   end
 
+  it "should deliver an activation instruction email on creation" do 
+    AccountMaintenance.should_receive(:deliver_activation_instructions).once
+    User.create!(@valid_attributes)
+  end
+
   describe "activate!" do 
     it "makes an inactive user active" do 
       user = User.create!(@valid_attributes)
