@@ -40,6 +40,6 @@ class Photo < ActiveRecord::Base
 
   protected
   def set_title
-    self.title = "untitled photo" if self.title.nil?
+    self.title = "untitled photo" if self.title.blank?
   end
 end

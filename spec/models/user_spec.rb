@@ -13,4 +13,13 @@ describe User do
   it "should create a new instance given valid attributes" do
     User.create!(@valid_attributes)
   end
+
+  describe "activate!" do 
+    it "makes an inactive user active" do 
+      user = User.create!(@valid_attributes)
+      user.should_not be_active
+      user.activate!
+      user.reload.should be_active
+    end
+  end
 end
