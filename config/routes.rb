@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :photos
 
-  map.picture "/pictures/:id", :controller => "pictures", :action => "show"
+  map.picture "/pictures/:id/:style", :controller => "pictures", :action => "show"
 
   map.root :photos
 

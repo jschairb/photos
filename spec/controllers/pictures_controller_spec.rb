@@ -5,7 +5,7 @@ describe PicturesController do
   before(:each) do 
     login
     @photos = mock("Photos")
-    @picture = fixture_file_upload("picture.jpg")#mock("picture", :path => fixture_file_upload , :picture_content_type => "bar")
+    @picture = fixture_file_upload("picture.jpg")
     @current_user.stub!(:photos).and_return(@photos)
     @photo = mock_model(Photo, :title => 'A new title', 
                                :picture => @picture, 
@@ -15,7 +15,7 @@ describe PicturesController do
 
   describe "GET 'show'" do 
     it "should be successful" do 
-      get 'show', :id => @photo.id
+      get 'show', :id => @photo.id, :style => "original"
       response.should be_success
     end
   end
