@@ -1,18 +1,21 @@
 <html>
   <head>
     <title>Photos - <%= controller.controller_name %> : <%= controller.action_name %></title>
+    <%= stylesheet_link_tag "photos" %>
   </head>
   <body>
-    <div id="login_links">
-      <% if current_user-%>
-        <% form_for :user_session, current_user_session,
-                    :url => user_session_path, 
-                    :html => { :method => :delete } do |f| -%>
-          <%= submit_tag "Logout" %>
+    <div id="header">
+      <div id="login_links">
+        <% if current_user-%>
+          <% form_for :user_session, current_user_session,
+                      :url => user_session_path, 
+                      :html => { :method => :delete } do |f| -%>
+            <%= submit_tag "Logout" %>
+          <% end -%>
+        <% else -%>
+          <%= link_to "login", new_user_session_path %>
         <% end -%>
-      <% else -%>
-        <%= link_to "login", new_user_session_path %>
-      <% end -%>
+      </div>
     </div>
     <%= @content_for_layout %>
   </body>

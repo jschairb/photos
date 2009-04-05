@@ -4,7 +4,7 @@ describe "/photos/show" do
   before(:each) do
     picture = mock("picture", :url => '/picture.jpg')
     @photo = mock_model(Photo, :title => "A Photo")
-    @photo.should_receive(:picture).and_return(picture)
+    @photo.should_receive(:picture).at_least(:once).and_return(picture)
     assigns[:photo] = @photo
     render 'photos/show'
   end

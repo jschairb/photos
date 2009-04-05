@@ -3,7 +3,9 @@
 <%= link_to 'Index', photos_path %>
 <%= link_to "Edit", edit_photo_path(@photo) %>
 
-
-<p><%= image_tag @photo.picture.url(:original) %></p>
-<p><%= image_tag picture_path(@photo.id, "original"), :alt => @photo.title %></p>
+<p><%= image_tag @photo.picture.url(:thumb), :alt => @photo.title %></p>
+<p><%= image_tag @photo.picture.url(:tiny), :alt => @photo.title %></p>
+<p><%= image_tag @photo.picture.url(:small), :alt => @photo.title %></p>
+<p><%= image_tag @photo.picture.url(:medium), :alt => @photo.title %></p>
+<p><%= image_tag @photo.picture.url(:original), :alt => @photo.title %></p>
    

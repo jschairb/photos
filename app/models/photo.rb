@@ -3,10 +3,16 @@ class Photo < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :title, :user
+  has_attached_file :picture,
+                    :styles => { :thumb  => ["100x75>", :png],
+                                 :tiny   => ["180x135", :png],
+                                 :small  => ["240x180>", :png],
+                                 :medium => ["500x375>", :png] },
+                    :url => "/pictures/:id/:style"
 
-  has_attached_file :picture
+
   validates_attachment_presence :picture
+  validates_presence_of :title, :user
 
   before_validation :set_title
 

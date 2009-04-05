@@ -6,6 +6,7 @@ describe PicturesController do
     login
     @photos = mock("Photos")
     @picture = fixture_file_upload("picture.jpg")
+    @picture.stub!(:path)
     @current_user.stub!(:photos).and_return(@photos)
     @photo = mock_model(Photo, :title => 'A new title', 
                                :picture => @picture, 
