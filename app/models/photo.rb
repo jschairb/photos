@@ -8,7 +8,8 @@ class Photo < ActiveRecord::Base
                                  :tiny   => ["180x135", :png],
                                  :small  => ["240x180>", :png],
                                  :medium => ["500x375>", :png] },
-                    :url => "/pictures/:id/:style"
+                    :url => "/pictures/:id/:style",
+                    :path => ":rails_root/data/:attachment/:id/:style/:basename.:extention"
 
 
   validates_attachment_presence :picture
