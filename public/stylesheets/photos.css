@@ -1,5 +1,9 @@
-#header { background: #09901E; border-bottom: 4px solid #949900; padding: .5em;}
+a, a:visited { color: blue; }
+
+#header_container { background: #09901E; border-bottom: 8px solid #949900; margin-bottom: 1em; }
+#header { padding: .5em; }
 #login_links { text-align: right; }
 
-h1 { color: #003399; }
+h1,h2,h3.h4 { color: #003399; }
 
+#site_title { font-size: 32px; color: #003399; }

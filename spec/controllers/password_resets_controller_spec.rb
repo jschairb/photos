@@ -61,7 +61,6 @@ describe PasswordResetsController do
       response.should redirect_to(account_path)
     end
 
-
     it "should render if could not be saved" do 
       User.should_receive(:find_using_perishable_token).and_return(@user)
       @user.should_receive(:save).and_return(false)
