@@ -15,6 +15,9 @@ ActionController::Routing::Routes.draw do |map|
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
   map.resources :activations, :collection => { :instructions => :get }
 
+  # PASSWORD RESETS
+  map.resources :password_resets
+
   map.picture "/pictures/:id/:style", :controller => "pictures", :action => "show"
 
   map.root :photos

@@ -30,7 +30,7 @@ describe User do
       @user.reload.should be_active
     end
 
-    it "should resent the perishable_token" do 
+    it "should generate the perishable_token" do 
       @user.should_receive(:reset_perishable_token!)
       @user.activate!
     end
@@ -39,5 +39,22 @@ describe User do
       AccountMaintenance.should_receive(:deliver_activation_completion)
       @user.activate!
     end
+  end
+
+  describe "reset_password!" do 
+    before(:each) do 
+      @user = User.create!(@valid_attributes)
+    end
+
+    it "should generate a perishable token" do 
+      @user.should_receive(:reset_perishable_token!)
+      @user.reset_password!
+    end
+
+    it "should deliver a password_reset email" do 
+      AccountMaintenance.should_receive(:deliver_password_reset_instructions)
+      @user.reset_password!
+    end
+
   end
 end

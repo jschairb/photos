@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def reset_password!
+    reset_perishable_token!
+    AccountMaintenance.deliver_password_reset_instructions(self)
+  end
+
   private
   def deliver_activation_instructions!
     reset_perishable_token!
