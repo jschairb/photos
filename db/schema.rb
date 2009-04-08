@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090405171438) do
+ActiveRecord::Schema.define(:version => 20090408003557) do
+
+  create_table "invites", :force => true do |t|
+    t.integer  "sender_id"
+    t.string   "recipient_email"
+    t.string   "token"
+    t.datetime "sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "photos", :force => true do |t|
     t.string   "title"
@@ -58,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20090405171438) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "active"
+    t.integer  "invite_id"
+    t.integer  "invite_limit"
   end
 
 end
