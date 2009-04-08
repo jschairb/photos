@@ -20,7 +20,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.picture "/pictures/:id/:style", :controller => "pictures", :action => "show"
 
-  map.root :photos
+  map.home "/home", :controller => "home", :action => "index"
+
+  map.root :controller => "home"
 
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
