@@ -12,7 +12,8 @@ class InvitesController < ApplicationController
       path = @invite.sender.present? ? user_path(current_user) : root_path
       redirect_to path
     else
-      render :action => "new"
+      to_render = current_user ? { :action => "new" } : { :template => "home/index" }
+      render to_render
     end
   end
 end

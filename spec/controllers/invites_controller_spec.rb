@@ -2,14 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InvitesController do
 
-  before(:each) do 
-    login
-    @invites = mock("invites")
-    @current_user.stub!(:sent_invites).and_return(@invites)
-  end
-
   describe "GET 'new'" do
     before(:each) do 
+      login
+      @invites = mock("invites")
+      @current_user.stub!(:sent_invites).and_return(@invites)
       @invites.stub!(:build).and_return(mock_model(Invite))
     end
     
@@ -27,6 +24,9 @@ describe InvitesController do
   describe "POST 'create'" do 
     describe "when logged in" do 
       before(:each) do 
+        login
+        @invites = mock("invites")
+        @current_user.stub!(:sent_invites).and_return(@invites)
         @invite = mock_model(Invite, :sender => mock("sender"))
         @invites.stub!(:build).and_return(@invite)
       end
@@ -46,8 +46,23 @@ describe InvitesController do
     end
 
     describe "when not logged in" do 
-      it "should redirect on success"
-      it "should render on failure"
+      before(:each) do 
+        @invite = mock_model(Invite, :sender => nil)
+        Invite.should_receive(:new).and_return(@invite)
+      end
+
+      it "should redirect on success" do 
+        @invite.should_receive(:save).and_return(true)
+        post :create, :invite => { :recipient_email => "joe@example.org"}
+        response.should be_redirect
+        response.should redirect_to(root_path)
+      end
+
+      it "should render on failure" do 
+        @invite.should_receive(:save).and_return(false)
+        post :create, :invite => { :recipient_email => "joe@example.org"}
+        response.should render_template("home/index")
+      end
     end
   end
 end
