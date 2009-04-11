@@ -2,11 +2,13 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User do
   before(:each) do
+    @invite = create_invite(:recipient_email => "login@example.com")
     @valid_attrs = {
       :login => "login_1",
       :email => "login@example.com",
       :password => "foobar",
-      :password_confirmation => "foobar"
+      :password_confirmation => "foobar",
+      :invite_token => @invite.token
     }
   end
 
@@ -38,6 +40,14 @@ describe User do
     it "should deliver the activation_completion email" do 
       AccountMaintenance.should_receive(:deliver_activation_completion)
       @user.activate!
+    end
+  end
+
+  describe "invite_token" do 
+    it "should return the token from the associated invite" do 
+      user = User.new(@valid_attrs)
+      user.save.should == true
+      user.reload.invite_token.should == @invite.token
     end
   end
 

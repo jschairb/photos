@@ -25,22 +25,29 @@ describe InvitesController do
   end
 
   describe "POST 'create'" do 
-    before(:each) do 
-      @invite = mock_model(Invite)
-      @invites.stub!(:build).and_return(@invite)
+    describe "when logged in" do 
+      before(:each) do 
+        @invite = mock_model(Invite, :sender => mock("sender"))
+        @invites.stub!(:build).and_return(@invite)
+      end
+      
+      it "should redirect on success" do 
+        @invite.should_receive(:save).and_return(true)
+        post :create, :invite => { }
+        response.should be_redirect
+        response.should redirect_to(user_path(@current_user))
+      end
+      
+      it "should render new if failure" do 
+        @invite.should_receive(:save).and_return(false)
+        post :create, :invite => { }
+        response.should render_template("invites/new")
+      end
     end
 
-    it "should redirect on success" do 
-      @invite.should_receive(:save).and_return(true)
-      post :create, :invite => { }
-      response.should be_redirect
-      response.should redirect_to(user_path(@current_user))
-    end
-
-    it "should render new if failure" do 
-      @invite.should_receive(:save).and_return(false)
-      post :create, :invite => { }
-      response.should render_template("invites/new")
+    describe "when not logged in" do 
+      it "should redirect on success"
+      it "should render on failure"
     end
   end
 end

@@ -65,4 +65,11 @@ describe Invite do
       invite.reload.token.should == "1234567"
     end
   end
+
+  describe "notify_recipient" do 
+    it "should notify after create" do 
+      AccountMaintenance.should_receive(:deliver_welcome_invite)
+      invite = Invite.create(@valid_attrs)
+    end
+  end
 end

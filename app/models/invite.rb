@@ -5,10 +5,11 @@ class Invite < ActiveRecord::Base
 
   validates_presence_of :recipient_email
   validate :invite_has_not_been_accepted
-  validate :sender_has_unused_invites
+  validate :sender_has_unused_invites, :if => :sender
 
   before_create :generate_token
-  after_create  :decrement_sender_invite_limit
+  after_create  :decrement_sender_invite_limit, :if => :sender
+  after_create  :notify_recipient,              :if => :sender
 
   def has_been_accepted?
     return true if User.find_by_email(self.recipient_email)
@@ -26,6 +27,10 @@ private
 
   def invite_has_not_been_accepted
     errors.add :recipient_email, 'is already registered' if has_been_accepted?
+  end
+
+  def notify_recipient
+    AccountMaintenance.deliver_welcome_invite(self)
   end
 
   def sender_has_unused_invites

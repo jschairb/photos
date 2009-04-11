@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/users/new" do
   before(:each) do
     @user = mock_model(User, :new_record? => true, :login => "", :password => "", :email => "",
-                             :password_confirmation => "")
+                             :password_confirmation => "", :invite_token => "123456")
     assigns[:user] = @user
     render 'users/new'
   end

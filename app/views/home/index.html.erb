@@ -2,4 +2,14 @@
 
 <p>This site is currently under alpha.  You need an invitation to signup. Signup below to receive an invitation when we send them out.</p>
 
+<% form_for :invite, Invite.new, :url => invites_path do |f| -%>
+  <%= f.error_messages %>
+  
+  <p><%= f.label :recipient_email, "Email Address" %>
+  <%= f.text_field :recipient_email %></p>
+
+  <%= submit_tag "Invite" %>
+  
+<% end -%>
+
 

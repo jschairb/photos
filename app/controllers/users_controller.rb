@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_filter :require_user, :only => [:show, :edit, :update]
 
   def new
-    @user = User.new
+    @user = User.new(:invite_token => params[:invite_token])
+    @user.email = @user.invite.recipient_email
   end
 
   def create

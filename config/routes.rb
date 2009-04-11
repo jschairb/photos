@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :photos
 
   # SIGNUP
-  map.signup '/signup', :controller => "users", :action => "new"
+  map.signup '/signup/:invite_token', :controller => "users", :action => "new"
 
   # ACTIVATION
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'

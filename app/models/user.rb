@@ -3,11 +3,14 @@ class User < ActiveRecord::Base
 
   acts_as_authentic
 
+  validates_presence_of :invite_id, :message => "is required"
+  validates_uniqueness_of :invite_id, :message => "has already been registered"
+
   has_many :photos, :dependent => :destroy
   has_many :sent_invites, :class_name => "Invite", :foreign_key => "sender_id"
   belongs_to :invite
 
-  attr_accessible :login, :email, :password, :password_confirmation
+  attr_accessible :login, :email, :invite_token, :password, :password_confirmation
 
   after_create :deliver_activation_instructions!
   before_create :set_invite_limit
@@ -25,6 +28,14 @@ class User < ActiveRecord::Base
 
   def has_unused_invites?
     return true if invite_limit > 0
+  end
+
+  def invite_token
+    invite.token if invite
+  end
+
+  def invite_token=(token)
+    self.invite = Invite.find_by_token(token)
   end
 
   def reset_password!

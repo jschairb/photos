@@ -3,6 +3,8 @@
 <% form_for @user do |f| -%>
   <%= f.error_messages %>
 
+  <%= f.hidden_field :invite_token%>
+
   <p><%= f.label :login %>
   <%= f.text_field :login %></p>
 
