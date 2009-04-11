@@ -14,6 +14,11 @@
             <% form_for :user_session, current_user_session,
                         :url => user_session_path, 
                         :html => { :method => :delete } do |f| -%>
+              <%= submit_tag "Logout" %>
+            <% end -%>
+            <% if current_user.has_unused_invites?-%>
+              <%= link_to "Invite a friend", new_invite_path %>
+              (<%= current_user.invite_limit%> left)
             <% end -%>
           <% else -%>
             <%= link_to "login", new_user_session_path %>

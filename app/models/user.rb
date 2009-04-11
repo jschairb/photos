@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_unused_invites?
+    return true if invite_limit > 0
+  end
+
   def reset_password!
     reset_perishable_token!
     AccountMaintenance.deliver_password_reset_instructions(self)

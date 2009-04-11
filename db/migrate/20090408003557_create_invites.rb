@@ -10,7 +10,7 @@ class CreateInvites < ActiveRecord::Migration
     end
 
     add_column :users, :invite_id, :integer
-    add_column :users, :invite_limit, :integer
+    add_column :users, :invite_limit, :integer, :default => 0, :null => false
   end
 
   def self.down

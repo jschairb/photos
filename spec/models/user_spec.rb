@@ -65,4 +65,12 @@ describe User do
       @user.reload.invite_limit.should == User::DEFAULT_INVITE_LIMIT
     end
   end
+
+  describe "has_unused_invites?" do 
+    it "should return true if invite_limit is > 0" do 
+      @user = User.create(@valid_attrs)
+      @user.has_unused_invites?.should == true
+      @user.invite_limit.should > 0
+    end
+  end
 end
