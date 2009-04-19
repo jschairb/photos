@@ -3,6 +3,12 @@
 <%= link_to 'Index', photos_path %>
 <%= link_to "Edit", edit_photo_path(@photo) %>
 
+<h2>Meta-tastic!!</h2>
+<p><b>Make:</b><%= h @photo.make %></p>
+<p><b>Model:</b><%= h @photo.model %></p>
+<p><b>DateTimeOriginal:</b><%= h @photo.date_time_original %></p>
+
+<h2>Pictures</h2>
 <p><%= image_tag @photo.picture.url(:thumb), :alt => @photo.title %></p>
 <p><%= image_tag @photo.picture.url(:tiny), :alt => @photo.title %></p>
 <p><%= image_tag @photo.picture.url(:small), :alt => @photo.title %></p>

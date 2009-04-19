@@ -35,11 +35,11 @@ describe Photo do
       @photo = Photo.new(@valid_attrs)
     end
 
+    # FIXME: problems w/ fixture_file_upload
     xit "sets after save" do 
-      @photo.exif_data.should be_empty
+      @photo.model.should be_blank
       @photo.save.should == true
-      @photo.set_exif_data.should == true
-      @photo.reload.exif_data.should_not be_empty
+      @photo.reload.model.should be_present
     end
   end
 

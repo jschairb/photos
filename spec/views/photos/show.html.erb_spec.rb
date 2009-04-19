@@ -3,7 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/photos/show" do
   before(:each) do
     picture = mock("picture", :url => '/picture.jpg')
-    @photo = mock_model(Photo, :title => "A Photo")
+    @photo = mock_model(Photo, :title => "A Photo", 
+                               :make => "Canon", 
+                               :model => "Canon Powershot", 
+                               :date_time_original => "04/20/1977 03:18:00")
     @photo.should_receive(:picture).at_least(:once).and_return(picture)
     assigns[:photo] = @photo
     render 'photos/show'

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090408003557) do
+ActiveRecord::Schema.define(:version => 20090419170859) do
 
   create_table "invites", :force => true do |t|
     t.integer  "sender_id"
@@ -47,6 +47,11 @@ ActiveRecord::Schema.define(:version => 20090408003557) do
     t.string   "orientation"
     t.string   "shutter_speed"
     t.integer  "user_id"
+    t.string   "exif_image_length"
+    t.string   "exif_image_width"
+    t.string   "x_resolution"
+    t.string   "y_resolution"
+    t.string   "y_cb_cr_positioning"
   end
 
   create_table "users", :force => true do |t|

@@ -2,8 +2,8 @@ class AddExifDataToPhoto < ActiveRecord::Migration
   def self.up
     add_column :photos, :aperture, :string
     add_column :photos, :comment, :string
-    add_column :photos, :create_date, :datetime
-    add_column :photos, :date_time_original, :datetime
+    add_column :photos, :create_date, :string
+    add_column :photos, :date_time_original, :string
     add_column :photos, :device_attributes, :string
     add_column :photos, :exif_tool_version, :string
     add_column :photos, :exif_version, :string
@@ -14,7 +14,7 @@ class AddExifDataToPhoto < ActiveRecord::Migration
     add_column :photos, :keywords, :string
     add_column :photos, :make, :string
     add_column :photos, :model, :string
-    add_column :photos, :modify_date, :datetime
+    add_column :photos, :modify_date, :string
     add_column :photos, :orientation, :string
     add_column :photos, :shutter_speed, :string
   end
