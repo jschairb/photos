@@ -6,6 +6,9 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   config.gem 'authlogic', :version => '2.0.5', :source => "http://gems.rubyforge.org"
+  config.gem "thoughtbot-factory_girl", :lib => "factory_girl",
+                                        :source => "http://gems.github.com"
+  config.gem 'faker', :version => "0.3.1", :source => "http://gems.rubyforge.org"
   config.gem 'mms2r', :version => "2.2.0", :source => "http://gems.rubyforge.org"
   config.gem 'thoughtbot-paperclip', :version => '2.2.7', 
                                      :lib => 'paperclip', :source => "http://gems.github.com"
