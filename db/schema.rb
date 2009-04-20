@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20090419170859) do
     t.datetime "picture_updated_at"
     t.string   "aperture"
     t.string   "comment"
-    t.datetime "create_date"
-    t.datetime "date_time_original"
+    t.string   "create_date"
+    t.string   "date_time_original"
     t.string   "device_attributes"
     t.string   "exif_tool_version"
     t.string   "exif_version"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20090419170859) do
     t.string   "keywords"
     t.string   "make"
     t.string   "model"
-    t.datetime "modify_date"
+    t.string   "modify_date"
     t.string   "orientation"
     t.string   "shutter_speed"
     t.integer  "user_id"
@@ -55,15 +55,15 @@ ActiveRecord::Schema.define(:version => 20090419170859) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login",                              :null => false
-    t.string   "email",                              :null => false
-    t.string   "crypted_password",                   :null => false
-    t.string   "password_salt",                      :null => false
-    t.string   "persistence_token",                  :null => false
-    t.string   "single_access_token",                :null => false
-    t.string   "perishable_token",                   :null => false
-    t.integer  "login_count",         :default => 0, :null => false
-    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.string   "login",                                  :null => false
+    t.string   "email",                                  :null => false
+    t.string   "crypted_password",                       :null => false
+    t.string   "password_salt",                          :null => false
+    t.string   "persistence_token",                      :null => false
+    t.string   "single_access_token",                    :null => false
+    t.string   "perishable_token",                       :null => false
+    t.integer  "login_count",         :default => 0,     :null => false
+    t.integer  "failed_login_count",  :default => 0,     :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -71,9 +71,9 @@ ActiveRecord::Schema.define(:version => 20090419170859) do
     t.string   "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active"
+    t.boolean  "active",              :default => false, :null => false
     t.integer  "invite_id"
-    t.integer  "invite_limit"
+    t.integer  "invite_limit",        :default => 0,     :null => false
   end
 
 end

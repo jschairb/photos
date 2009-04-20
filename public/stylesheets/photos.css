@@ -1,9 +1,50 @@
-a, a:visited { color: blue; }
+/* colors 
+  * black to white
+   - 000000
+   - 333333
+   - 666666
+   - 999999
+   - CCCCCC
+   - FFFFFF
 
-#header_container { background: #09901E; border-bottom: 8px solid #949900; margin-bottom: 1em; }
+  * blues and green
+   - 28809D dark pastel blue 
+   - 60A1B7 light pastel blue
+   - 3E5991 dark turquoise blue
+   - AAB6CF light turquoise blue
+   - 0F7F16 green
+*/
+
+body { color: #333333; }
+
+a, a:visited { color: #AAB6CF; }
+
+a:hover { color: #FFFFFF; background: #AAB6CF; }
+
+#header_container { 
+    background: #3E5991; 
+    border-bottom: 8px solid #AAB6CF; 
+    margin-bottom: 1em; }
+
 #header { padding: .5em; }
+
 #login_links { text-align: right; }
 
-h1,h2,h3.h4 { color: #003399; }
+h1,h2,h3,h4,h5,h6 { color: #28809D; }
 
-#site_title { font-size: 32px; color: #003399; }
+#site_title { font-size: 32px; color: #60A1B7; font-weight: bold; }
+
+/* FORMS
+==================================== */
+
+label { font-weight: bold; }
+
+/* PHOTO LISTS
+==================================== */
+
+ul.photos_list {
+    list-style: none;
+}
+
+ul.photos_list li { float: left; margin-right: 2em; }
+

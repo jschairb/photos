@@ -1,27 +1,3 @@
-module ApplicationHelper
-  def labelled_form_for(*attrs, &proc)
-    options = attrs.last.is_a?(Hash) ? attrs.pop : {}
-    object = attrs.pop
- 
-    options.reverse_merge!(
-      :builder => LabellingFormBuilder
-    )
- 
-    form_for(object, options, &proc)
-  end
-
-  def labelled_fields_for(*a, &b)
-    options = a.last.is_a?(Hash) ? a.pop : {}
-    object = a.pop
- 
-    options.reverse_merge!(
-      :builder => LabellingFormBuilder
-    )
- 
-    fields_for(object, options, &b)
-  end
-
-
 ActionView::Base.field_error_proc = proc { |input, instance| input }
 
 class LabellingFormBuilder < ActionView::Helpers::FormBuilder
@@ -175,6 +151,4 @@ class MyOwnFreakingBuilderThatDoesntRelyOnMethodMissing
       "#{html}".gsub('&', '&amp;').gsub('<', '&lt;').gsub('>', '&gt;').gsub(/"|'/, '&quot;')
     end
 
-end
-  
 end

@@ -1,5 +1,13 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>Your Account</h1>
 
-<h2>Pictures</h2>
+<p><%= link_to "Upload a new photo", new_photo_path %></p>
+
+<ul class="photos_list">
+  <% @user.photos.each do |photo| -%>
+    <li>
+      <%= image_tag photo.picture.url(:tiny), :alt => h(photo.title) %>
+      <span style="display:block;"><%= link_to h(photo.title), photo_path(photo) %></span>
+    </li>
+  <% end -%>
+</ul>
 
