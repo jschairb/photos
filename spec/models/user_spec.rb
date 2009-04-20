@@ -70,7 +70,6 @@ describe User do
   describe "set_invite_limit" do 
     it "should be set before_create" do 
       @user = User.new(@valid_attrs)
-      @user.invite_limit.should be_nil
       @user.save!.should == true
       @user.reload.invite_limit.should == User::DEFAULT_INVITE_LIMIT
     end

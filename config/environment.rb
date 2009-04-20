@@ -7,6 +7,8 @@ Rails::Initializer.run do |config|
 
   config.gem 'authlogic', :version => '2.0.5', :source => "http://gems.rubyforge.org"
   config.gem 'faker', :version => "0.3.1", :source => "http://gems.rubyforge.org"
+  config.gem 'giraffesoft-is_taggable', :version => "0.1.0", :source => "http://gems.github.com",
+                                        :lib => "is_taggable"
   config.gem 'mms2r', :version => "2.2.0", :source => "http://gems.rubyforge.org"
   config.gem 'thoughtbot-paperclip', :version => '2.2.7', 
                                      :lib => 'paperclip', :source => "http://gems.github.com"
@@ -27,5 +29,3 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 end
-
-# ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance| "<span class=\"fieldWithErrors\">#{html_tag}</span>" }

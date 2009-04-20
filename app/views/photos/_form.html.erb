@@ -2,5 +2,9 @@
   <%= f.error_messages %>
   <%= f.text_field :title %>
   <%= f.file_field :picture, :required => true %>
+  <%= f.text_field :picture_url %>
+  
+  <%= f.text_field :tag_list %>
+  
   <%= submit_tag @submit_text %>
 <% end -%>

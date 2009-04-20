@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090419170859) do
+ActiveRecord::Schema.define(:version => 20090420215354) do
 
   create_table "invites", :force => true do |t|
     t.integer  "sender_id"
@@ -52,7 +52,24 @@ ActiveRecord::Schema.define(:version => 20090419170859) do
     t.string   "x_resolution"
     t.string   "y_resolution"
     t.string   "y_cb_cr_positioning"
+    t.string   "picture_remote_url"
   end
+
+  create_table "taggings", :force => true do |t|
+    t.integer "tag_id"
+    t.string  "taggable_type", :default => ""
+    t.integer "taggable_id"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+
+  create_table "tags", :force => true do |t|
+    t.string "name", :default => ""
+    t.string "kind", :default => ""
+  end
+
+  add_index "tags", ["name", "kind"], :name => "index_tags_on_name_and_kind"
 
   create_table "users", :force => true do |t|
     t.string   "login",                                  :null => false

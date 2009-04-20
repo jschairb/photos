@@ -1,4 +1,7 @@
+require 'open-uri'
 class Photo < ActiveRecord::Base
+
+  attr_accessor :picture_url
 
   belongs_to :user
 
@@ -10,11 +13,16 @@ class Photo < ActiveRecord::Base
                     :url => "/pictures/:id/:style",
                     :path => ":rails_root/data/:attachment/:id/:style/:basename.:extension"
 
+  is_taggable :tags
 
   validates_attachment_presence :picture
   validates_presence_of :title, :user
+  validates_presence_of :picture_remote_url, :if => :picture_url_provided?, 
+                                            :message => 'is invalid or inaccessible'
 
   before_validation :set_title
+  before_validation :download_remote_picture, :if => :picture_url_provided?
+
 
   after_picture_post_process :set_exif_data
 
@@ -49,4 +57,23 @@ class Photo < ActiveRecord::Base
   def set_title
     self.title = "untitled photo" if self.title.blank?
   end
+
+private
+ 
+  def picture_url_provided?
+    !self.picture_url.blank?
+  end
+ 
+  def download_remote_picture
+    self.picture = do_download_remote_picture
+    self.picture_remote_url = picture_url
+  end
+ 
+  def do_download_remote_picture
+    io = open(URI.parse(picture_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end
+
 end
