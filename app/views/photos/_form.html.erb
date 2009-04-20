@@ -1,7 +1,6 @@
-<% form_for @photo, :html => { :multipart => true } do |f| -%>
-  <p><label for="photo_title">Title</label>
-  <%= f.text_field :title %></p>
-  <p><label for="photo_title">File</label>
-  <%= f.file_field :picture %></p>
+<% labelled_form_for @photo, :html => { :multipart => true } do |f| -%>
+  <%= f.error_messages %>
+  <%= f.text_field :title %>
+  <%= f.file_field :picture, :required => true %>
   <%= submit_tag @submit_text %>
 <% end -%>

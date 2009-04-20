@@ -1,21 +1,13 @@
 <h1>Signup</h1>
 
-<% form_for @user do |f| -%>
+<% labelled_form_for @user do |f| -%>
   <%= f.error_messages %>
-
   <%= f.hidden_field :invite_token%>
-
-  <p><%= f.label :login %>
-  <%= f.text_field :login %></p>
-
-  <p><%= f.label :email %>
-  <%= f.text_field :email %></p>
-
-  <p><%= f.label :password, f.object.new_record? ? nil : "Change password" %>
-  <%= f.password_field :password %></p>
-
-  <p><%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %></p>
+  <%= f.text_field :login %>
+  <%= f.text_field :email %>
+  <% label = f.object.new_record? ? "Password" : "Change password" %>
+  <%= f.password_field :password, :label => label %>
+  <%= f.password_field :password_confirmation %>
 
   <%= submit_tag "Create" %>
 <% end -%>

@@ -1,180 +1,108 @@
 module ApplicationHelper
-  def labelled_form_for(*attrs, &proc)
-    options = attrs.last.is_a?(Hash) ? attrs.pop : {}
-    object = attrs.pop
- 
-    options.reverse_merge!(
-      :builder => LabellingFormBuilder
-    )
- 
-    form_for(object, options, &proc)
+  def flash_div *keys
+    divs = keys.select { |k| flash[k] }.collect do |k|
+      content_tag :div, h(flash[k]), :class => "flash #{k}" 
+    end
+    divs.join
   end
 
-  def labelled_fields_for(*a, &b)
-    options = a.last.is_a?(Hash) ? a.pop : {}
-    object = a.pop
- 
-    options.reverse_merge!(
-      :builder => LabellingFormBuilder
-    )
- 
-    fields_for(object, options, &b)
-  end
+  class StandardFormBuilder < ActionView::Helpers::FormBuilder
+    def field_settings(method, options = {}, tag_value = nil)
+      field_name = "#{@object_name}_#{method.to_s}"
+      default_label = tag_value.nil? ? "#{method.to_s.gsub(/\_/, " ")}".titleize : "#{tag_value.to_s.gsub(/\_/, " ")}".titleize
+      label = options[:label] ? options.delete(:label) : default_label
+      options[:class] ||= ""
+      options[:class] += options[:required] ? " required" : ""
+      label += "<strong><sup>*</sup></strong>" if options[:required]
+      [field_name, label, options]
+    end
 
+    def text_field(method, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("text", field_name, label, super, options)
+    end
+    
+    def file_field(method, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("file", field_name, label, super, options)
+    end
 
-ActionView::Base.field_error_proc = proc { |input, instance| input }
-
-class LabellingFormBuilder < ActionView::Helpers::FormBuilder
-
-  @@_name_id_counter = 0
-
-  def initialize(*a, &b)
-    @@_name_id_counter += 1
-    super(*a, &b)
-  end
-
-  def text_field(name, opts={})
-    opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "text")
-    p(name, super(name, opts), p_opts)
-  end
-
-  def text_area(name, opts={})
-    opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "textarea")
-    p(name, super(name, opts), p_opts)
-  end
-
-  def check_box(name, opts={})
-    opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "checkbox")
-    p(name, super(name, opts), p_opts)
-  end
-
-  def submit_tag(value, opts={})
-    p_opts = extract_p_opts(opts)
-    tag('p', tag('input', opts.merge(:value => value, :type => 'submit')), {:class => 'button'}.merge(p_opts))
-  end
-  
-  def file_field(name, opts={})
-    opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "file")
-    p(name, super(name, opts), p_opts)
-  end
-  
-  def password_field(name, opts={})
-    opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "password")
-    p(name, super(name, opts), p_opts)
-  end
-
-  def select(name, choices, opts={}, html_opts={})
-    html_opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "select")
-    add_class(p_opts, "multiple") if html_opts[:multiple]
-    p(name, super(name, choices, opts, html_opts), p_opts)
-  end
-
-  def date_select(name, opts={}, html_opts={})
-    opts[:id] ||= "#{idize object_name}_#{name}"
-    p_opts = extract_p_opts(opts)
-    add_class(p_opts, "select-date")
-    p(name, super(name, opts, html_opts), p_opts)
-  end
-  
-  def submit(value='Save', opts={})
-    if opts.delete(:label)
-      p_opts = extract_p_opts(opts)
-      p('submit', super(value, opts), {:class => 'submit button'}.merge(p_opts))
-    else
-      tag('p', super(value, opts), :class => 'submit button')
+    def datetime_select(method, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("datetime", field_name, label, super, options)
+    end
+    
+    def date_select(method, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("date", field_name, label, super, options)
+    end
+    
+    def radio_button(method, tag_value, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("radio", field_name, label, super, options)
+    end
+    
+    def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+      field_name, label, options = field_settings(method, options)
+      wrapper("check-box", field_name, label, super, options)
+    end
+    
+    def select(method, choices, options = {}, html_options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("select", field_name, label, super, options)
+    end
+    
+    def time_zone_select(method, choices, options = {}, html_options = {})
+      field_name, label, options = field_settings(method, options)
+      # wrapping("time-zone-select", field_name, label, super, options)
+      select_box = this_check_box = @template.select(@object_name, method, choices, options.merge(:object => @object), html_options)
+      wrapper("time-zone-select", field_name, label, select_box, options)    
+    end
+    
+    def password_field(method, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("password", field_name, label, super, options)
+    end
+    
+    def text_area(method, options = {})
+      field_name, label, options = field_settings(method, options)
+      wrapper("textarea", field_name, label, super, options)
+    end
+    
+    def submit(method, options = {})
+      field_name, label, options = field_settings(method, options.merge( :label => "&nbsp;"))
+      wrapper("submit", field_name, label, super, options)
+    end
+    
+    def submit_and_cancel(submit_name, cancel_name, options = {})
+      submit_button = @template.submit_tag(submit_name, options)
+      cancel_button = @template.submit_tag(cancel_name, options)
+      wrapper("submit", nil, "", submit_button+cancel_button, options)
+    end
+    
+    private
+    def wrapper(type, field_name, label, field, options = {})
+      help = %Q{<span class="help">#{options[:help]}</span>} if options[:help]
+      to_return = []
+      to_return << %Q{<div class="#{type}-field #{options[:class]}">}
+      to_return << %Q{<label for="#{field_name}">#{label}#{help}</label>} unless ["radio","check", "submit"].include?(type)
+      to_return << %Q{<div class="input">}
+      to_return << field
+      to_return << %Q{<label for="#{field_name}">#{label}</label>} if ["radio","check"].include?(type)    
+      to_return << %Q{</div></div>}
     end
   end
 
-  alias default_fields_for fields_for
-
-  def fields_for(*a, &b)
-    options = a.last.is_a?(Hash) ? a.pop : {}
-
-    options.reverse_merge!(
-      :builder => LabellingFormBuilder
-    )
-
-    super(*(a << options), &b)
+  def labelled_form_for(record_or_name_or_array, *args, &proc)
+    options = args.extract_options!
+    form_for( record_or_name_or_array, 
+              *(args << options.merge(:builder => StandardFormBuilder)), &proc)
   end
 
-  def next
-    @@_name_id_counter += 1
+  def labelled_fields_for(record_or_name_or_array, *args, &proc)
+    options = args.extract_options!
+    fields_for( record_or_name_or_array, 
+                *(args << options.merge(:builder => LabelledFormBuilder)), &proc)
   end
 
-
-  private
-
-    def extract_p_opts(opts)
-      p_opts = opts.delete(:p) || {}
-      p_opts[:label] = opts.delete(:label)
-      p_opts[:class] = p_opts[:class].blank? ? "required" : "#{p_opts[:class]} required" if opts.delete(:required)
-      p_opts[:opts] = opts
-      p_opts
-    end
-
-    def p(name, content, opts={})
-      name = name.to_s
-      label = opts.delete(:label)
-      label ||= object.class.human_attribute_name(name)
-      optz = opts.delete(:opts) || {}
-      opts[:class] = "#{opts[:class].blank? ? '' : opts[:class]+' '}error" if object.errors.on(name)
-      tag('p', tag('label', label, :for => optz[:id] || "#{idize object_name}_#{name}") + content, opts)
-    end
-
-    def add_class(opts, class_name)
-      opts[:class] = opts[:class].blank? ? class_name : "#{opts[:class]} #{class_name}"
-    end
-
-    def tag(name, *args, &b)
-      MyOwnFreakingBuilderThatDoesntRelyOnMethodMissing.new.tag!(name, *args, &b)
-    end
-
-    #foo[bar][baz][] => foo_bar_baz_1
-    def idize(s)
-      "#{s}".gsub(/\[([^\[]+)\]/, '_\1').gsub(/\[\]/, "_#{@@_name_id_counter}")
-    end
-
-end
-
-class MyOwnFreakingBuilderThatDoesntRelyOnMethodMissing
-
-  def tag!(name, *opts, &b)
-    attrs = opts.last.is_a?(Hash) ? opts.pop : {}
-    t = "<#{name}"
-    t << (attrs.empty? ? '' : ' '+attrs.map{|k,v| "#{__h k}=\"#{__h v}\"" }.join(' '))
-    if opts.first
-      t << ">#{opts.first}<\/#{name}>"
-    elsif block_given?
-      t << ">#{yield}<\/#{name}>"
-    else
-      t << '/>'
-    end
-
-    t
-  end
-
-  private
-
-    def method_missing(*what, &ever)
-      tag!(*what, &ever)
-    end
-
-    def __h(html)
-      "#{html}".gsub('&', '&amp;').gsub('<', '&lt;').gsub('>', '&gt;').gsub(/"|'/, '&quot;')
-    end
-
-end
-  
 end

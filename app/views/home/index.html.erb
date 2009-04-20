@@ -4,9 +4,7 @@
 
 <% form_for :invite, Invite.new, :url => invites_path do |f| -%>
   <%= f.error_messages %>
-  
   <p><%= f.text_field :recipient_email %> <%= submit_tag "Invite" %></p>
-  
 <% end -%>
 
 
