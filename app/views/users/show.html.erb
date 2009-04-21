@@ -3,7 +3,7 @@
 <p><%= link_to "Upload a new photo", new_photo_path %></p>
 
 <ul class="photos_list">
-  <% @user.photos.each do |photo| -%>
+  <% @photos.each do |photo| -%>
     <li>
       <%= image_tag photo.picture.url(:tiny), :alt => h(photo.title) %>
       <span style="display:block;"><%= link_to h(photo.title), photo_path(photo) %></span>

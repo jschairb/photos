@@ -6,7 +6,8 @@ describe "/photos/show" do
     @photo = mock_model(Photo, :title => "A Photo", 
                                :make => "Canon", 
                                :model => "Canon Powershot", 
-                               :date_time_original => "04/20/1977 03:18:00")
+                               :date_time_original => "04/20/1977 03:18:00",
+                               :tag_list => [])
     @photo.should_receive(:picture).at_least(:once).and_return(picture)
     assigns[:photo] = @photo
     render 'photos/show'

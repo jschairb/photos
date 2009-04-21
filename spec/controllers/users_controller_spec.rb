@@ -63,6 +63,8 @@ describe UsersController do
     end
 
     it "should be successful" do
+      Photo.stub!(:find).and_return(mock("Photos"))
+      @current_user.should_receive(:photos).and_return(Photo)
       get 'show', :id => @current_user.id
       response.should be_success
     end

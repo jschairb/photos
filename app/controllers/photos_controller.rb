@@ -2,7 +2,9 @@ class PhotosController < ApplicationController
   before_filter :require_user
 
   def index
-    @photos = current_user.photos.find(:all)
+    @photos = current_user.photos.paginate( :page => params[:page],
+                                            :order => 'created_at',
+                                            :per_page => 12 )
   end
 
   def new

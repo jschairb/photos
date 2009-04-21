@@ -2,14 +2,16 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/photos/index" do
   before(:each) do
-    photo1 = mock_model(Photo, :title => "A photo")
+    picture = mock("picture", :url => '/picture.jpg')
+    photo1 = mock_model(Photo, :title => "A photo", :picture => picture)
     @photos = [photo1]
+    @photos.stub!(:total_pages).and_return(1)
     assigns[:photos] = @photos
     render 'photos/index'
   end
   
   it "should have a list of photos" do 
-    response.should have_tag("ul#photos")
+    response.should have_tag("ul.photos_list")
   end
 
   it "should have a link to add a new photo" do 

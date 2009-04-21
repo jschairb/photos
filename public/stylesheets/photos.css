@@ -46,5 +46,12 @@ ul.photos_list {
     list-style: none;
 }
 
-ul.photos_list li { float: left; margin-right: 2em; }
+ul.photos_list li { float: left; margin-right: 1em; }
 
+ul.photos_list img {
+    padding: 5px;
+    border: 1px solid #d9e0e6;
+    border-bottom-color: #c8cdd2;
+    border-right-color: #c8cdd2;
+    background: #fff;
+}

@@ -2,8 +2,13 @@
 
 <%= link_to "New Photo", new_photo_path %>
 
-<ul id="photos">
+<ul class="photos_list">
   <% @photos.each do |photo| -%>
-    <li id="<%= dom_id(photo) %>"><%= link_to h(photo.title), photo_path(photo) %></li>
+    <li id="<%= dom_id photo%>">
+      <%= image_tag photo.picture.url(:tiny), :alt => h(photo.title) %>
+      <span style="display:block;"><%= link_to h(photo.title), photo_path(photo) %></span>
+    </li>
   <% end -%>
 </ul>
+
+<%= will_paginate @posts %>

@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   def show
     @user = @current_user
+    @photos = @current_user.photos.find(:all, :limit => 12)
   end
 
   def edit

@@ -4,6 +4,7 @@ describe "/users/show" do
   before(:each) do
     user = mock_model(User, :photos => [])
     assigns[:user] = user
+    assigns[:photos] = []
     render 'users/show'
   end
   

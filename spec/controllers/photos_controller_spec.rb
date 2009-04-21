@@ -11,7 +11,7 @@ describe PhotosController do
 
   describe "GET 'index'" do
     it "should be successful" do
-      @photos.should_receive(:find)
+      @photos.should_receive(:paginate)
       get 'index'
       response.should be_success
     end

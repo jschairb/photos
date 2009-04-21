@@ -2,7 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/photos/new" do
   before(:each) do
-    @photo = mock_model(Photo, :new_record? => true, :title => nil)
+    @photo = mock_model(Photo, :new_record? => true, 
+                               :title => nil,
+                               :tag_list => "", 
+                               :picture_url => "")
     assigns[:photo] = @photo
     render 'photos/new'
   end
