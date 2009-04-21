@@ -18,11 +18,10 @@ class Photo < ActiveRecord::Base
   validates_attachment_presence :picture
   validates_presence_of :title, :user
   validates_presence_of :picture_remote_url, :if => :picture_url_provided?, 
-                                            :message => 'is invalid or inaccessible'
+                                             :message => 'is invalid or inaccessible'
 
   before_validation :set_title
   before_validation :download_remote_picture, :if => :picture_url_provided?
-
 
   after_picture_post_process :set_exif_data
 
@@ -73,7 +72,7 @@ private
     io = open(URI.parse(picture_url))
     def io.original_filename; base_uri.path.split('/').last; end
     io.original_filename.blank? ? nil : io
-  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+#  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 
 end

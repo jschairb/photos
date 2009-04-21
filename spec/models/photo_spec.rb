@@ -31,14 +31,13 @@ describe Photo do
   end
 
   describe "picture_url" do 
-    # FIXME: fix mocks/stubs to get proper calls on URL download
+    # FIXME: fix mocks/stubs to get proper open-uri action
     xit "should grab a URL" do 
       photo = Photo.new(@valid_attrs.merge(:picture => nil, 
                                            :picture_url => "http://localhost/picture.png"))
       photo.stub!(:picture_url_provided?).and_return(true)
-      Photo.should_receive(:download_remote_picture)
       Photo.should_receive(:do_download_remote_picture).and_return(File.open("#{Rails.root}/spec/fixtures/picture.jpg"))
-      photo.save!
+      photo.save.should == true
     end
   end
 
@@ -49,9 +48,9 @@ describe Photo do
 
     # FIXME: problems w/ fixture_file_upload
     xit "sets after save" do 
-      @photo.model.should be_blank
+      @photo.make.should be_blank
       @photo.save.should == true
-      @photo.reload.model.should be_present
+      @photo.reload.make.should be_present
     end
   end
 end
