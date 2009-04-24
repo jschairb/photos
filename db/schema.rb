@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090420215354) do
+ActiveRecord::Schema.define(:version => 20090424231555) do
+
+  create_table "buckets", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "invites", :force => true do |t|
     t.integer  "sender_id"
@@ -53,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20090420215354) do
     t.string   "y_resolution"
     t.string   "y_cb_cr_positioning"
     t.string   "picture_remote_url"
+    t.integer  "bucket_id"
   end
 
   create_table "taggings", :force => true do |t|

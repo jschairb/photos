@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates_presence_of :invite_id, :message => "is required"
   validates_uniqueness_of :invite_id, :message => "has already been registered"
 
+  has_many :buckets, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   has_many :sent_invites, :class_name => "Invite", :foreign_key => "sender_id"
   belongs_to :invite

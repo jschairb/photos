@@ -12,7 +12,7 @@ Rails::Initializer.run do |config|
   config.gem 'mms2r', :version => "2.2.0", :source => "http://gems.rubyforge.org"
   config.gem 'thoughtbot-paperclip', :version => '2.2.7', 
                                      :lib => 'paperclip', :source => "http://gems.github.com"
-#  config.gem 'rmagick', :version => '2.9.1'
+  config.gem 'rmagick', :version => '2.9.1'
   config.gem 'mislav-will_paginate', :version => '2.3.8', :source => "http://gems.github.com",
                                      :lib => "will_paginate"
 
