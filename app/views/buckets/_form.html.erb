@@ -1,0 +1,6 @@
+<% labelled_form_for @bucket do |f| -%>
+  <%= f.error_messages %>
+  <%= f.text_field :title %>
+
+  <%= submit_tag @submit_text %>
+<% end -%>

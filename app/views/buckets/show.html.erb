@@ -1,0 +1,13 @@
+<h1><%= h @bucket.title %></h1>
+
+<%= link_to "Edit", edit_bucket_path(@bucket) %>
+
+<ul class="photos_list">
+  <% @bucket.photos.each do |photo| -%>
+    <li id="<%= dom_id photo%>">
+      <%= image_tag photo.picture.url(:tiny), :alt => h(photo.title) %>
+      <span style="display:block;"><%= link_to h(photo.title), photo_path(photo) %></span>
+    </li>
+  <% end -%>
+</ul>
+
