@@ -5,7 +5,7 @@
 <table cellspacing="0">
   <% @buckets.each do |bucket| -%>
     <tr>
-      <td><%= h bucket.title %></td>
+      <td><%= link_to h(bucket.title), bucket_path(bucket) %></td>
       <td><%= pluralize bucket.photos.count, "photo" %></td>
       <td><%= link_to "Edit", edit_bucket_path(bucket) %></td>
     </tr>
