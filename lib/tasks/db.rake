@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../config/environment'
 $LOAD_PATH << File.dirname(__FILE__) + '/../../vendor/plugins/fixture_replacement/lib'
-require "fixture_replacement"
-include FixtureReplacement
+#require "fixture_replacement"
+#include FixtureReplacement
 
 desc "Deletes all the picture files"
 task :clear_pictures do 
