@@ -8,3 +8,5 @@ public/system/**/*
 data/**/*
 test
 tmp/restart.txt
+Capfile
+config/deploy.rb
