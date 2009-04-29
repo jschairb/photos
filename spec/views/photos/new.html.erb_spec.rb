@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/photos/new" do
   before(:each) do
+    login
+#    @current_user.should_receive(:buckets).and_return([])
     @photo = mock_model(Photo, :new_record? => true, 
                                :title => nil,
                                :tag_list => "", 

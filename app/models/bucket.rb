@@ -1,6 +1,6 @@
 class Bucket < ActiveRecord::Base
 
-  has_many :photos, :dependent => :nullify
+  has_and_belongs_to_many :photos
   belongs_to :user
 
   validates_presence_of :title, :user

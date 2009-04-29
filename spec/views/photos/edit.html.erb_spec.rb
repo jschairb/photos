@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/photos/edit" do
   before(:each) do
+    login
     @photo = mock_model(Photo, :new_record? => false, :title => "a photo", :picture_url => nil,
                                :tag_list => "")
     assigns[:photo] = @photo    

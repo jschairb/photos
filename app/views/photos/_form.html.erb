@@ -1,7 +1,7 @@
 <% labelled_form_for @photo, :html => { :multipart => true } do |f| -%>
   <%= f.error_messages %>
   <%= f.text_field :title %>
-  <%= f.select :bucket_id, current_user.buckets.collect {|bucket| [bucket.title, bucket.id]},
+  <%#= f.select :bucket_id, current_user.buckets.collect {|bucket| [bucket.title, bucket.id]},
                            :include_blank => true %>
   <%= f.file_field :picture, :required => true %>
   <%= f.text_field :picture_url %>

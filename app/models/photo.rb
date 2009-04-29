@@ -1,10 +1,11 @@
 require 'open-uri'
+require 'rmagick'
 class Photo < ActiveRecord::Base
 
   attr_accessor :picture_url
 
   belongs_to :user
-  belongs_to :bucket
+  has_and_belongs_to_many :buckets
 
   has_attached_file :picture,
                     :styles => { :thumb  => ["100x75>", :png],
