@@ -2,7 +2,7 @@ require 'open-uri'
 require 'rmagick'
 class Photo < ActiveRecord::Base
 
-  attr_accessor :picture_url
+  attr_accessor :picture_url, :buckets_list
 
   belongs_to :user
   has_and_belongs_to_many :buckets
@@ -31,7 +31,23 @@ class Photo < ActiveRecord::Base
     ExifData.new(self.attributes.slice(*ExifData::ATTRIBUTES))
   end
 
-  protected
+  private
+  def download_remote_picture
+    self.picture = do_download_remote_picture
+    self.picture_remote_url = picture_url
+  end
+ 
+  def do_download_remote_picture
+    io = open(URI.parse(picture_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end
+
+  def picture_url_provided?
+    !self.picture_url.blank?
+  end
+ 
   def set_exif_data
     imgfile = Magick::Image.read(self.picture.queued_for_write[:original].path).first
     return unless imgfile
@@ -57,24 +73,6 @@ class Photo < ActiveRecord::Base
 
   def set_title
     self.title = "untitled photo" if self.title.blank?
-  end
-
-private
- 
-  def picture_url_provided?
-    !self.picture_url.blank?
-  end
- 
-  def download_remote_picture
-    self.picture = do_download_remote_picture
-    self.picture_remote_url = picture_url
-  end
- 
-  def do_download_remote_picture
-    io = open(URI.parse(picture_url))
-    def io.original_filename; base_uri.path.split('/').last; end
-    io.original_filename.blank? ? nil : io
-  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 
 end
