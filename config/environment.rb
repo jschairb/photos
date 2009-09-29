@@ -15,7 +15,7 @@ Rails::Initializer.run do |config|
                                      :lib => "will_paginate"
 
 #   These gems are also required, but need to be compiled, so can't be included
-#   config.gem 'rmagick', :version => '2.9.1'
+  config.gem 'rmagick', :version => '2.9.1', :lib => "RMagick"
 #   config.gem 'mms2r', :version => "2.2.0", :source => "http://gems.rubyforge.org"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
