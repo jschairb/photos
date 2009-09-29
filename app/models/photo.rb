@@ -1,5 +1,5 @@
 require 'open-uri'
-require 'rmagick'
+require 'RMagick'
 class Photo < ActiveRecord::Base
 
   attr_accessor :picture_url, :buckets_list
