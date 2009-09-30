@@ -13,6 +13,7 @@
   <p><b>Make:</b><%= h @photo.make %></p>
   <p><b>Model:</b><%= h @photo.model %></p>
   <p><b>Taken:</b><%= h @photo.date_time_original %></p>
+  <p><b>Buckets: </b><%= @photo.buckets.collect {|bucket| bucket.title}.join(", ") %></p>
   <p><b>Tags:</b><%= h @photo.tag_list.join(", ") %></p>
 
   <h2>Sizes</h2>

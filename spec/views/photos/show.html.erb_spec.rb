@@ -7,6 +7,7 @@ describe "/photos/show" do
                                :make => "Canon", 
                                :model => "Canon Powershot", 
                                :date_time_original => "04/20/1977 03:18:00",
+                               :buckets => [],
                                :tag_list => [])
     @photo.should_receive(:picture).at_least(:once).and_return(picture)
     assigns[:photo] = @photo

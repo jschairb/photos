@@ -1,8 +1,14 @@
 <% labelled_form_for @photo, :html => { :multipart => true } do |f| -%>
   <%= f.error_messages %>
   <%= f.text_field :title %>
-  <%= f.select :buckets, current_user.buckets.collect {|bucket| [bucket.title, bucket.id]},
-               :include_blank => true %>
+  <fieldset>
+    <legend>Buckets</legend>
+    <% current_user.buckets.each do |bucket| -%>
+      <%= check_box_tag "photo[bucket_ids][]", bucket.id, f.object.buckets.include?(bucket) %>
+      <label><%= h(bucket.title) %></label>
+    <% end -%>
+  </fieldset>
+
   <%= f.file_field :picture, :required => true %>
   <%= f.text_field :picture_url %>
   
