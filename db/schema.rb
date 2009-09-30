@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090429133156) do
+ActiveRecord::Schema.define(:version => 20090930051019) do
 
   create_table "buckets", :force => true do |t|
     t.integer  "user_id"
@@ -35,12 +35,11 @@ ActiveRecord::Schema.define(:version => 20090429133156) do
   create_table "photos", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.string   "picture_remote_url"
     t.string   "aperture"
     t.string   "comment"
     t.string   "create_date"
@@ -58,13 +57,15 @@ ActiveRecord::Schema.define(:version => 20090429133156) do
     t.string   "modify_date"
     t.string   "orientation"
     t.string   "shutter_speed"
-    t.integer  "user_id"
     t.string   "exif_image_length"
+    t.string   "string"
     t.string   "exif_image_width"
     t.string   "x_resolution"
     t.string   "y_resolution"
     t.string   "y_cb_cr_positioning"
-    t.string   "picture_remote_url"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", :force => true do |t|
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20090429133156) do
   create_table "users", :force => true do |t|
     t.string   "login",                                  :null => false
     t.string   "email",                                  :null => false
+    t.boolean  "active",              :default => false, :null => false
     t.string   "crypted_password",                       :null => false
     t.string   "password_salt",                          :null => false
     t.string   "persistence_token",                      :null => false
@@ -98,11 +100,10 @@ ActiveRecord::Schema.define(:version => 20090429133156) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.integer  "invite_id"
+    t.integer  "invite_limit"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",              :default => false, :null => false
-    t.integer  "invite_id"
-    t.integer  "invite_limit",        :default => 0,     :null => false
   end
 
 end

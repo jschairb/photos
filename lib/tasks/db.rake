@@ -17,14 +17,14 @@ unless RAILS_ENV == 'production'
       
       create_user( :login => "jschairb", 
                    :email => "joshua.schairbaum+kippler@gmail.com", 
-                   :password => "kippler1", 
-                   :password_confirmation => "kippler1",
+                   :password => "monkey1", 
+                   :password_confirmation => "monkey1",
                    :active => true,
                    :invite_id => 1)
 
       # login data instruction
       puts "\n**************\nThe following accounts are available for use:\n\n" 
-      puts '  jschairb (password: kippler1)'
+      puts '  jschairb (password: monkey1)'
       puts "\n**************\n" 
     end
     
