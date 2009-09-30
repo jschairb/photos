@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
-  config.gem 'authlogic',               :version => '2.0.5', :source => "http://gems.rubyforge.org"
+  config.gem 'authlogic',               :version => '2.1.2', :source => "http://gems.rubyforge.org"
   config.gem 'faker',                   :version => "0.3.1", :source => "http://gems.rubyforge.org"
   config.gem 'giraffesoft-is_taggable', :version => "0.1.0", :source => "http://gems.github.com",    :lib => "is_taggable"
   config.gem 'thoughtbot-paperclip',    :version => '2.2.7', :source => "http://gems.github.com",    :lib => 'paperclip'
