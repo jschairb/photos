@@ -8,7 +8,7 @@ Rails::Initializer.run do |config|
   config.gem 'authlogic',               :version => '2.1.2', :source => "http://gems.rubyforge.org"
   config.gem 'faker',                   :version => "0.3.1", :source => "http://gems.rubyforge.org"
   config.gem 'giraffesoft-is_taggable', :version => "0.1.0", :source => "http://gems.github.com",    :lib => "is_taggable"
-  config.gem 'thoughtbot-paperclip',    :version => '2.2.7', :source => "http://gems.github.com",    :lib => 'paperclip'
+  config.gem 'thoughtbot-paperclip',    :version => '2.3.1', :source => "http://gems.github.com",    :lib => 'paperclip'
   config.gem 'mislav-will_paginate',    :version => '2.3.8', :source => "http://gems.github.com",    :lib => "will_paginate"
   config.gem 'rmagick',                 :version => '2.9.1', :source => "http://gems.rubyforge.org", :lib => "RMagick"
   config.gem 'mms2r',                   :version => "2.2.0", :source => "http://gems.rubyforge.org"
