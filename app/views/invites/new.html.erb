@@ -1,7 +1,6 @@
 <h1>Invite a friend</h1>
 
 <% labelled_form_for :invite, @invite, :url => invites_path do |f| -%>
-  <%= f.error_messages %>
   <%= f.text_field :recipient_email %>
   <%= submit_tag "Invite" %>
 <% end -%>
