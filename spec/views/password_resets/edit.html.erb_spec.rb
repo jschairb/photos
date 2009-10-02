@@ -2,8 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/password_resets/edit" do
   before(:each) do
+    mock_errors
     @user = mock_model(User, :perishable_token => "123456",
-                             :password => "", :password_confirmation => "")
+                             :password => "", :password_confirmation => "",
+                             :errors => @errors )
     assigns[:user] = @user
     render 'password_resets/edit'
   end

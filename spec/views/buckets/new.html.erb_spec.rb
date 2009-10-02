@@ -2,8 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/buckets/new" do
   before(:each) do
+    mock_errors
     @bucket = mock_model(Bucket, :new_record? => true,
-                                 :title => nil)
+                                 :title => nil, :errors => @errors)
     assigns[:bucket] = @bucket
     render 'buckets/new'
   end

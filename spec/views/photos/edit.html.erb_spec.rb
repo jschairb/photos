@@ -4,8 +4,9 @@ describe "/photos/edit" do
   before(:each) do
     login
     @current_user.should_receive(:buckets).and_return([])
+    mock_errors
     @photo = mock_model(Photo, :new_record? => false, :title => "a photo", :picture_url => nil,
-                               :buckets => [], :tag_list => "")
+                               :buckets => [], :tag_list => "", :errors => @errors)
     assigns[:photo] = @photo    
     render 'photos/edit'
   end

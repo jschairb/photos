@@ -13,6 +13,11 @@ Spec::Runner.configure do |config|
   config.include Authlogic::TestCase
 end
 
+def mock_errors
+  @errors = mock(:errors)
+  @errors.stub!(:on)
+end
+
 def current_user(stubs = {})
   @current_user ||= mock_model(User, stubs)
 end

@@ -4,11 +4,12 @@ describe "/photos/new" do
   before(:each) do
     login
     @current_user.should_receive(:buckets).and_return([])
+    mock_errors
     @photo = mock_model(Photo, :new_record? => true, 
                                :title => nil,
                                :buckets => [],
                                :tag_list => "", 
-                               :picture_url => "")
+                               :picture_url => "", :errors => @errors)
     assigns[:photo] = @photo
     render 'photos/new'
   end
