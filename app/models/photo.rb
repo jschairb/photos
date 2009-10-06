@@ -7,10 +7,12 @@ class Photo < ActiveRecord::Base
   has_and_belongs_to_many :buckets
 
   has_attached_file :picture,
-                    :styles => { :thumb  => ["100x75>", :png],
-                                 :tiny   => ["180x135", :png],
+                    :styles => { :thumb  => ["75x75#", :png],
+                                 :tiny   => ["180x135#", :png],
+                                 :grid   => ["280x210#", :png],
                                  :small  => ["240x180>", :png],
-                                 :medium => ["500x375>", :png] },
+                                 :medium => ["500x375>", :png],
+                                 :large  => ["1024x768>", :png] },
                     :url => "/pictures/:id/:style",
                     :path => ":rails_root/data/:attachment/:id/:style/:basename.:extension"
 

@@ -1,13 +1,15 @@
 <h1>Your Account</h1>
+<p class="actions right"><%= link_to "Upload a new photo", new_photo_path %></p>
 
-<p><%= link_to "Upload a new photo", new_photo_path %></p>
-
-<ul class="photos_list">
-  <% @photos.each do |photo| -%>
-    <li>
-      <%= image_tag photo.picture.url(:tiny), :alt => h(photo.title) %>
-      <span style="display:block;"><%= link_to h(photo.title), photo_path(photo) %></span>
-    </li>
-  <% end -%>
-</ul>
+<% @photos.in_groups_of(3, false) do |photos| -%>
+  <div class="row">
+    <% photos.each do |photo| -%>
+      <div class="column photo grid_4">
+        <%= link_to(image_tag(photo.picture.url(:grid), :alt => h(photo.title), 
+                              :height => 210, :width => 280), photo_path(photo), :class => "image") %>
+        <div><%= link_to h(photo.title), photo_path(photo) %></div>
+      </div>
+    <% end -%>
+  </div>
+<% end -%>
 

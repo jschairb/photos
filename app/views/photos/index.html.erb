@@ -5,7 +5,7 @@
 <ul class="photos_list">
   <% @photos.each do |photo| -%>
     <li id="<%= dom_id photo%>">
-      <%= image_tag photo.picture.url(:tiny), :alt => h(photo.title) %>
+      <%= image_tag(photo.picture.url(:tiny), :alt => h(photo.title), :height => 135, :width => 180) %>
       <span style="display:block;"><%= link_to h(photo.title), photo_path(photo) %></span>
     </li>
   <% end -%>

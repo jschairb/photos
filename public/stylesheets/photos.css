@@ -20,17 +20,23 @@ body { color: #333333; }
 a, a:visited { color: #AAB6CF; }
 
 a:hover { color: #FFFFFF; background: #AAB6CF; }
+a.image:hover { background: #FFFFFF; color: #AAB6CF; }
 
-#header_container { 
+.right { text-align: right; }
+
+.actions { margin-bottom: 1em; }
+
+#header { 
+    padding: .5em;    
     background: #3E5991; 
     border-bottom: 8px solid #AAB6CF; 
     margin-bottom: 1em; }
 
-#header { padding: .5em; }
-
 #login_links { text-align: right; }
 
 h1,h2,h3,h4,h5,h6 { color: #28809D; }
+
+h1 { font-size: 28px; }
 
 #site_title { font-size: 32px; color: #60A1B7; font-weight: bold; }
 
@@ -46,12 +52,15 @@ ul.photos_list {
     list-style: none;
 }
 
-ul.photos_list li { float: left; margin-right: 1em; }
+ul.photos_list li { float: left; }
 
-ul.photos_list img {
-    padding: 5px;
+div.photo { margin-bottom: 1em; }
+
+div#image img, div.photo img {
+    padding: 9px;
     border: 1px solid #d9e0e6;
     border-bottom-color: #c8cdd2;
     border-right-color: #c8cdd2;
     background: #fff;
+    margin-bottom: 4px;
 }
