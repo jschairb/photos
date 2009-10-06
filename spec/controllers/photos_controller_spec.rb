@@ -57,7 +57,7 @@ describe PhotosController do
   describe "GET 'edit'" do
     before(:each) do 
       @photo = mock_model(Photo, :title => "photo")
-      @photos.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find_by_token).and_return(@photo)
     end
 
     it "should assign a variable to a photo" do 
@@ -74,7 +74,7 @@ describe PhotosController do
   describe "PUT 'update'" do 
     before(:each) do 
       @photo = mock_model(Photo, :title => 'A new title')
-      @photos.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find_by_token).and_return(@photo)
     end
     
     it "should redirect if saved" do 
@@ -94,7 +94,7 @@ describe PhotosController do
   describe "GET 'show'" do
     before(:each) do 
       @photo = mock_model(Photo, :title => 'A new title')
-      @photos.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find_by_token).and_return(@photo)
     end
 
     it "should be successful" do
@@ -107,7 +107,7 @@ describe PhotosController do
     it "should redirect after destroy" do 
       @photo = mock_model(Photo, :title => 'A new title')
       @photo.should_receive(:destroy).and_return(true)
-      @photos.should_receive(:find).and_return(@photo)
+      @photos.should_receive(:find_by_token).and_return(@photo)
       delete :destroy, :id => @photo.id
     end
   end

@@ -24,6 +24,7 @@ class InitialSchema < ActiveRecord::Migration
     create_table :photos do |t|
       t.string   :title
       t.text     :description
+      t.string   :token
       # paperclip
       t.string   :picture_file_name
       t.string   :picture_content_type

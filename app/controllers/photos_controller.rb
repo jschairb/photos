@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
   def index
     @photos = current_user.photos.paginate( :page => params[:page],
                                             :order => 'created_at',
-                                            :per_page => 12 )
+                                            :per_page => 9 )
   end
 
   def new
@@ -21,11 +21,11 @@ class PhotosController < ApplicationController
   end
 
   def edit
-    @photo = current_user.photos.find params[:id]
+    @photo = current_user.photos.find_by_token params[:id]
   end
 
   def update
-    @photo = current_user.photos.find params[:id]
+    @photo = current_user.photos.find_by_token params[:id]
     if @photo.update_attributes(params[:photo])
       redirect_to photo_path(@photo)
     else
@@ -34,11 +34,11 @@ class PhotosController < ApplicationController
   end
 
   def show
-    @photo = current_user.photos.find params[:id]
+    @photo = current_user.photos.find_by_token params[:id]
   end
 
   def destroy
-    @photo = current_user.photos.find(params[:id]).destroy
+    @photo = current_user.photos.find_by_token(params[:id]).destroy
     redirect_to photos_path
   end
 end

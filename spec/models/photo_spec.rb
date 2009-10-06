@@ -30,6 +30,15 @@ describe Photo do
     end
   end
 
+  describe "generate token" do 
+    it "should generate before create" do 
+      photo = Photo.new(@valid_attrs)
+      photo.token.should be_nil
+      photo.save.should == true
+      photo.reload.token.should_not be_nil
+    end
+  end
+
   describe "picture_url" do 
     # FIXME: fix mocks/stubs to get proper open-uri action
     xit "should grab a URL" do 

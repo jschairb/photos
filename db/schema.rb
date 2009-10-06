@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20090930051019) do
   create_table "photos", :force => true do |t|
     t.string   "title"
     t.text     "description"
+    t.string   "token"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"

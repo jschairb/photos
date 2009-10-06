@@ -1,5 +1,6 @@
 require 'open-uri'
 class Photo < ActiveRecord::Base
+  TOKEN_LENGTH = 2
 
   attr_accessor :picture_url, :buckets_list
 
@@ -13,8 +14,8 @@ class Photo < ActiveRecord::Base
                                  :small  => ["240x180>", :png],
                                  :medium => ["500x375>", :png],
                                  :large  => ["1024x768>", :png] },
-                    :url => "/pictures/:id/:style",
-                    :path => ":rails_root/data/:attachment/:id/:style/:basename.:extension"
+                    :url => "/pictures/:token/:style",
+                    :path => ":rails_root/data/:attachment/:token/:style/:basename.:extension"
 
   is_taggable :tags
 
@@ -25,11 +26,16 @@ class Photo < ActiveRecord::Base
 
   before_validation :set_title
   before_validation :download_remote_picture, :if => :picture_url_provided?
+  before_save       :generate_token
 
   after_picture_post_process :set_exif_data
 
   def exif_data
     ExifData.new(self.attributes.slice(*ExifData::ATTRIBUTES))
+  end
+
+  def to_param
+    self.token
   end
 
   private
@@ -45,10 +51,29 @@ class Photo < ActiveRecord::Base
   rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
   end
 
+  def generate_token
+    if (temp_token = random_token) and self.class.find_by_token(temp_token).nil?
+      self.token = temp_token
+    else
+      generate_token
+    end
+  end
+    
   def picture_url_provided?
     !self.picture_url.blank?
   end
  
+  def random_token
+    characters = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789'
+    temp_token = ''
+    srand
+    TOKEN_LENGTH.times do
+      pos = rand(characters.length)
+      temp_token += characters[pos..pos]
+    end
+    temp_token
+  end
+
   def set_exif_data
     imgfile = Magick::Image.read(self.picture.queued_for_write[:original].path).first
     return unless imgfile
