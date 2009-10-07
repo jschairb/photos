@@ -62,4 +62,15 @@ describe Photo do
       @photo.reload.make.should be_present
     end
   end
+
+  describe "validate_bucket_ownership" do 
+    it "should add an error if photo user does not equal bucket user" do 
+      user1 = create_user
+      user2 = create_user
+      bucket = create_bucket(:user => user2)
+      photo = user1.photos.build(:bucket_ids => [bucket.reload.id])
+      photo.should_not be_valid
+      photo.errors_on(:buckets).should include("does not belong to user")
+    end
+  end
 end

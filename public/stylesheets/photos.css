@@ -48,11 +48,7 @@ label { font-weight: bold; }
 /* PHOTO LISTS
 ==================================== */
 
-ul.photos_list {
-    list-style: none;
-}
-
-ul.photos_list li { float: left; }
+div.photo_row { padding: 0 80px; }
 
 div.photo { margin-bottom: 1em; }
 

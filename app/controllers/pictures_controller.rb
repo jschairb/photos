@@ -7,7 +7,7 @@ class PicturesController < ApplicationController
     picture = @photo.picture.path(style)
     send_file( picture, 
                :type => @photo.picture_content_type, 
-               :dispostion => 'inline' )
+               :disposition => 'inline' )
   end
 
 end

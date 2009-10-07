@@ -24,9 +24,13 @@ class Photo < ActiveRecord::Base
   validates_presence_of :picture_remote_url, :if => :picture_url_provided?, 
                                              :message => 'is invalid or inaccessible'
 
+  validate :validate_bucket_ownership
+
   before_validation :set_title
   before_validation :download_remote_picture, :if => :picture_url_provided?
   before_save       :generate_token
+
+
 
   after_picture_post_process :set_exif_data
 
@@ -77,28 +81,33 @@ class Photo < ActiveRecord::Base
   def set_exif_data
     imgfile = Magick::Image.read(self.picture.queued_for_write[:original].path).first
     return unless imgfile
-    logger.info "Photo EXIF: " + imgfile.get_exif_by_entry().inspect
 
-    self.date_time_original = imgfile.get_exif_by_entry('DateTimeOriginal')[0][1]
-    self.create_date = imgfile.get_exif_by_entry('DateTime')[0][1]
-    self.modify_date = imgfile.get_exif_by_entry('DateTimeDigitized')[0][1]
-    self.exif_image_length = imgfile.get_exif_by_entry('ExifImageLength')[0][1]
-    self.exif_image_width = imgfile.get_exif_by_entry('ExifImageWidth')[0][1]
-    self.make = imgfile.get_exif_by_entry('Make')[0][1]
-    self.aperture = imgfile.get_exif_by_entry('ApertureValue')[0][1]
-    self.model = imgfile.get_exif_by_entry('Model')[0][1]
-    self.flash = imgfile.get_exif_by_entry('Flash')[0][1]
-    self.x_resolution = imgfile.get_exif_by_entry('XResolution')[0][1]
-    self.y_resolution = imgfile.get_exif_by_entry('YResolution')[0][1]
+    self.date_time_original  = imgfile.get_exif_by_entry('DateTimeOriginal')[0][1]
+    self.create_date         = imgfile.get_exif_by_entry('DateTime')[0][1]
+    self.modify_date         = imgfile.get_exif_by_entry('DateTimeDigitized')[0][1]
+    self.exif_image_length   = imgfile.get_exif_by_entry('ExifImageLength')[0][1]
+    self.exif_image_width    = imgfile.get_exif_by_entry('ExifImageWidth')[0][1]
+    self.make                = imgfile.get_exif_by_entry('Make')[0][1]
+    self.aperture            = imgfile.get_exif_by_entry('ApertureValue')[0][1]
+    self.model               = imgfile.get_exif_by_entry('Model')[0][1]
+    self.flash               = imgfile.get_exif_by_entry('Flash')[0][1]
+    self.x_resolution        = imgfile.get_exif_by_entry('XResolution')[0][1]
+    self.y_resolution        = imgfile.get_exif_by_entry('YResolution')[0][1]
     self.y_cb_cr_positioning = imgfile.get_exif_by_entry('YCbCrPositioning')[0][1]
-    self.orientation = imgfile.get_exif_by_entry('Orientation')[0][1]
-    self.shutter_speed = imgfile.get_exif_by_entry('ShutterSpeedValue')[0][1]
-    self.exposure_time = imgfile.get_exif_by_entry('ExposureTime')[0][1]
-    self.focal_length = imgfile.get_exif_by_entry('FocalLength')[0][1]
+    self.orientation         = imgfile.get_exif_by_entry('Orientation')[0][1]
+    self.shutter_speed       = imgfile.get_exif_by_entry('ShutterSpeedValue')[0][1]
+    self.exposure_time       = imgfile.get_exif_by_entry('ExposureTime')[0][1]
+    self.focal_length        = imgfile.get_exif_by_entry('FocalLength')[0][1]
   end
 
   def set_title
     self.title = "untitled photo" if self.title.blank?
+  end
+
+  def validate_bucket_ownership
+    if self.buckets.collect{ |bucket| bucket.user != self.user }.any?
+      errors.add(:buckets, "does not belong to user")
+    end
   end
 
 end

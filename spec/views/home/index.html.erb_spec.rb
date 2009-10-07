@@ -6,6 +6,6 @@ describe "/home/index" do
   end
   
   it "should have a title" do
-    response.should have_tag('h1', "Welcome")
+    response.should have_tag('h1', "Photo Sharing For Your Life")
   end
 end

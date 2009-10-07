@@ -4,7 +4,7 @@ Paperclip.options[:command_path] = image_magick_path
 
 module Paperclip
   module Interpolations
-    # Returns the id of the instance.
+    # Returns the token of the instance.
     def token attachment, style
       attachment.instance.token
     end
